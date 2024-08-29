@@ -1,6 +1,5 @@
 package com.spring_boot.blog_application.controller;
 
-
 import com.spring_boot.blog_application.entity.User;
 import com.spring_boot.blog_application.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +12,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@CrossOrigin(origins = {"http://127.0.0.1:5500", "http://localhost:5500"})
+// @CrossOrigin(origins = {"http://127.0.0.1:5500", "http://localhost:5500"})
+@CrossOrigin(origins = { "https://rupali-personal-persuits.vercel.app" })
 @RequestMapping("/admin")
 public class AdminController {
 
     @Autowired
     private UserService userService;
-
 
     @GetMapping("/all-users")
     public String getAllUsers(Model model) {
@@ -27,16 +26,17 @@ public class AdminController {
         model.addAttribute("users", allUsers);
         return "admin_get_users"; // Thymeleaf template name
     }
-//    @GetMapping("/all-users")
-//    public ResponseEntity<?> getAllUsers() {
-//        List<User> allUsers = userService.getAllUsers();
-//        if (allUsers != null && !allUsers.isEmpty()) {
-//            return new ResponseEntity<>(allUsers, HttpStatus.OK);
-//        }
-//        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//    }
+
+    // @GetMapping("/all-users")
+    // public ResponseEntity<?> getAllUsers() {
+    // List<User> allUsers = userService.getAllUsers();
+    // if (allUsers != null && !allUsers.isEmpty()) {
+    // return new ResponseEntity<>(allUsers, HttpStatus.OK);
+    // }
+    // return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    // }
     @PostMapping("/admin-signup")
-    public void createAdmin(@RequestBody User user){
+    public void createAdmin(@RequestBody User user) {
         userService.saveAdmin(user);
     }
 }

@@ -11,7 +11,8 @@ import java.util.Collections;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = {"http://127.0.0.1:5500", "http://localhost:5500"})
+// @CrossOrigin(origins = {"http://127.0.0.1:5500", "http://localhost:5500"})
+@CrossOrigin(origins = { "https://rupali-personal-persuits.vercel.app" })
 @RequestMapping("/api/v1/images")
 public class ImageUploadController {
 
@@ -28,4 +29,3 @@ public class ImageUploadController {
         }
     }
 }
-
