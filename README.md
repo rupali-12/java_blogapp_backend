@@ -3,12 +3,8 @@
 **GITHUB LINK**
 
 [Github Backend Link](https://github.com/rupali-12/java_blogapp_backend)
-[Github Frontend Link](https://github.com/rupali-12/Java_blogapp_Frontend)
 
 **DEPLOYED LINK**
-
-[Backend Link](https://javablogappbackend-production.up.railway.app/)
-[Frontend Link](https://rupali-personal-persuits.vercel.app/)
 [DeployedLink](https://rupali-personal-persuits.vercel.app/)
 
 ## Project Overview
