@@ -1,5 +1,6 @@
 package com.spring_boot.blog_application.controller;
 
+import com.spring_boot.blog_application.config.EmailService;
 import com.spring_boot.blog_application.entity.User;
 import com.spring_boot.blog_application.service.UserDetailsServiceImpl;
 import com.spring_boot.blog_application.service.UserService;
@@ -14,6 +15,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import com.spring_boot.blog_application.config.EmailService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -31,6 +33,8 @@ public class PublicController {
 
     @Autowired
     private AuthenticationManager authenticationManager;
+    @Autowired
+    private EmailService emailService;
 
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
@@ -53,20 +57,48 @@ public class PublicController {
         return "login";
     }
 
+    // @PostMapping("/signup")
+    // public ResponseEntity<?> registerUser(@RequestBody User user) {
+    // try {
+    // // Perform registration logic (e.g., save the user to the database)
+    // userService.saveNewUser(user);
+
+    // // Return success response with the user details
+    // return new ResponseEntity<>("Registration Successful", HttpStatus.CREATED);
+
+    // } catch (Exception e) {
+    // // Log the exception (optional)
+    // e.printStackTrace();
+
+    // // Return an error response
+    // return new ResponseEntity<>("Registration failed",
+    // HttpStatus.INTERNAL_SERVER_ERROR);
+    // }
+    // }
+
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@RequestBody User user) {
         try {
-            // Perform registration logic (e.g., save the user to the database)
+            // Save the new user in the database
             userService.saveNewUser(user);
 
-            // Return success response with the user details
+            // Send a welcome email after successful registration
+            String to = user.getEmail();
+            String subject = "Welcome to Personal Pursuits!";
+            String body = "Dear " + user.getUserName() + ",\n\n" +
+                    "Thank you for joining Personal Pursuits! We're excited to have you on board.\n\n" +
+                    "Explore, share, and grow with our community of passionate individuals.\n\n" +
+                    "Best regards,\n" +
+                    "The Personal Pursuits Team";
+
+            emailService.sendEmail(to, subject, body);
+
+            // Return success response
             return new ResponseEntity<>("Registration Successful", HttpStatus.CREATED);
 
         } catch (Exception e) {
-            // Log the exception (optional)
-            e.printStackTrace();
-
-            // Return an error response
+            // Log and return an error response
+            log.error("Registration failed: {}", e.getMessage(), e);
             return new ResponseEntity<>("Registration failed", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
