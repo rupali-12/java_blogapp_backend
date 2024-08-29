@@ -43,8 +43,6 @@ This project is a personal blog application that allows users to write, edit, an
 1. **Clone the repository**
 
    ```sh
-   For Frontend:
-   git clone https://github.com/rupali-12/Java_blogapp_Frontend.git
    For Backend:
    git clone https://github.com/rupali-12/Java_blogapp_Backend.git
 
